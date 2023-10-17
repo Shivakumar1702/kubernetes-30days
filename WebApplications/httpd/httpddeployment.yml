@@ -13,10 +13,10 @@ spec:
     spec:
       containers:
       - name: httpd
-        image: registry.redhat.io/rhscl/httpd-24-rhel7
+        image: shivakumar1702/httpd:1
         resources:
           limits:
             memory: "128Mi"
             cpu: "500m"
         ports:
-        - containerPort: 8080
+        - containerPort: 80
