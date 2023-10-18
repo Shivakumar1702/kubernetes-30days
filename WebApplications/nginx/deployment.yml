@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deploymnet
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx-deploymnet
+  template:
+    metadata:
+      labels:
+        app: nginx-deploymnet
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/os
+                    operator: NotIn
+                    values:
+                    - windows
+      containers:
+      - name: nginx-deploymnet
+        image: nginx:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+          requests:
+            memory: "120Mi"
+            cpu: "400m"
+        ports:
+        - containerPort: 80
