@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: tomcat-deployment
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: tomcat-deployment
@@ -11,12 +12,37 @@ spec:
       labels:
         app: tomcat-deployment
     spec:
+      restartPolicy: Always
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/os
+                    operator: In
+                    values:
+                    - linux
       containers:
       - name: tomcat-deployment
-        image: shivakumar1702/customtomcat:2
+        image: shivakumar1702/customtomcat:5
+        livenessProbe:
+          httpGet:
+            path: /app
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /app
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 10
         resources:
           limits:
             memory: "128Mi"
             cpu: "500m"
+          requests:
+            memory: "120Mi"
+            cpu: "400m"
         ports:
         - containerPort: 8080
