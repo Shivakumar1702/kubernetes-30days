@@ -1,0 +1,24 @@
+Istio:
+Istio is a service mesh, service mesh manages communication between microservices.
+Inside the cluster one service can easily talk with other service freely without any restriction.
+Additional logic required inside the cluster to restrict unnecessary communication/
+Core features of Service mesh:
+	traffic splitting: traffic can be split between existing service and a new version of the same service.
+					  	(canary deployment)
+In Istio: Envoy proxy works as proxy for the service(side car)
+		  Istiod is the control plane component which injects Envoy proxy to all the microservices.
+Istio can be implemented in k8s cluster by using CRD (custom resouce definition)
+Virtual service and destination rule are the two yamls, used to configure the Istio.
+Istio also contains Istio Ingress gateway. Istio Ingress gateway is an alternate to nginx Ingress controller.
+
+Steps to install Istio:
+Download Istio Release
+Set the binary path in env variables
+check Istioctl command working
+To Istio by command: istioctl install
+TO enable the side car proxy(envoy): add label to the default namespace - istio-injection=enabled
+
+To enable addons for data visualization - istio --> addons --> samples
+kiali can be used for visualization - kubectl port-forward svc/kiali -n istio-system 20001
+Prometheus --> monitoring
+Grafana --> visualization
