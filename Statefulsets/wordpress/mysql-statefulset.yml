@@ -1,0 +1,86 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sql-cm
+data:
+  MYSQL_DATABASE: wordpress-db
+  MYSQL_USER: wordpress-user
+---
+# rootpassword
+# userpassword
+apiVersion: v1
+kind: Secret
+metadata:
+  name: sql-secret
+type: Opaque
+data:
+  MYSQL_ROOT_PASSWORD: cm9vdHBhc3N3b3Jk
+  MYSQL_PASSWORD: dXNlcnBhc3N3b3Jk
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sql-headless
+spec:
+  selector:
+    app: mysql
+  clusterIP: None
+  ports:
+  - port: 80
+    targetPort: 3306
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+  serviceName: sql-headless
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:8
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MYSQL_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: sql-cm
+              key: MYSQL_DATABASE
+        - name: MYSQL_USER
+          valueFrom:
+            configMapKeyRef:
+              name: sql-cm
+              key: MYSQL_USER
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: sql-secret
+              key: MYSQL_ROOT_PASSWORD
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: sql-secret
+              key: MYSQL_PASSWORD
+        volumeMounts:
+        - name: sql-vol
+          mountPath: /var/lib/mysql    
+  volumeClaimTemplates:
+  - metadata:
+      name: sql-vol
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 500Mi
+
+
+
