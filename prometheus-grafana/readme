@@ -1,0 +1,12 @@
+Prometheus & Grafana
+Prometheus is a monitoring tool where as grafana is a visualization tool.
+Prometheus has a http server and time series database, Prometheus pulls metrics from K8s API server and stores in time series database. which can be further sent to alert manager or viz tools or APIs.
+
+Services in Prometheus:
+my-prometheus-server --> prometheus API server. We can query this server using PromQL to get info about the cluster. this can only provide the info which is exposed by Kubernetes API Server which is cluster related info.
+my-prometheus-kube-state-metrics --> This has all the data related to the cluster which can be used for vizualization.
+
+Grafana:
+Install grafana by helm charts.
+access the grafana by using my-grafana service by converting it to nodeport.
+Add prometheus as datasource in grafana, import dashboards 3662 for demo.
