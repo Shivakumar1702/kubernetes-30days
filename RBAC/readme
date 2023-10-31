@@ -1,0 +1,15 @@
+RBAC --> Role based access control.
+User Management --> what actions can the user perform on the kubernetes cluster.
+Service Account --> what actions can the resource which is attached to a service account can perform on cluter.
+
+main components of kubernetes:
+Service accounts / Users
+Roles / Cluster Roles
+Role Binding / Cluster Role Binding
+
+Roles/Clusterroles can be attached to users, groups, service accounts.
+
+Role/cluter role is where we define what permissions user/sa should have, It is attached to a user/sa using Rolebinding/Cluster role binding.
+
+Users cannot be created on kubernetes cluster only the rbac is taken care by kubernetes. User management should be taken care by identity providers.
+
