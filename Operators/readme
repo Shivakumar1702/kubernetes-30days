@@ -1,0 +1,25 @@
+Operators:
+
+Kubernetes controller: K8s controller manages the state of K8s resource like replicaset controller manages the pods. controllers are native like replicaset controller or can be custom like nginx ingress controller, Argo CD is a custom K8s controller, Istio is a custom K8s controller. 
+To Extent the functionality of k8s cluster we use k8s controller.
+
+A controller can be install on the cluster by helm charts or operators.
+
+Helm chart cannot prevent the changes that done to resource definitions of controller and cannot manage once created.
+Upgrade of the controllers which are created by the helm charts are manual.
+
+Operator is a way of bundling, packaging and managing of controller.
+Operators are created with a bunch of CRDs.
+Operator is a bundle of custom k8s controller resources, operator manages the controller and also prevents overriding of the resources.
+Upgrades can be set to automatic whenever an update is available.
+
+Operators can be written in Go, Ansible, Helm.
+
+Popular Operators:
+Prometheus
+Istio
+Elasticsearch
+ArgoCD
+Minio
+
+operatorhub.io --> operators hub
