@@ -1,0 +1,14 @@
+Custom Resource Definition:
+There are in built resources in k8s like pod, svc, deployment, replicaset. If we want to a custom resource to extend the existing
+functionality of kubernetes then we can use CRD.
+
+CRD: Defining a new type of API to kubernetes. Team building the CRD will submit the CRD to k8s.
+    when user submit a yml file for Custom resource, this will get validated with the Custom resource Definition.
+    this is same as deployment.yml will be validated with inbuilt resource deployment in k8s. and the deployment is managed by a replicaset controller.
+    similarly Custom resource will be managed by custom controller.
+
+============
+
+Horizontal pod autoscaler: 
+whenever load is high, number of pods will be autoscaled and when load decreased the pods counts will be reduced.
+the load is monitored by metrics server.
