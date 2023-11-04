@@ -1,0 +1,10 @@
+Ingress types:
+Host based and Path based routing
+minikube ssh
+curl 192.168.49.2 -H 'host: foo.bar.com'
+curl 192.168.49.2/second -H 'host: foo.bar.com'
+
+If from outside the cluster
+minikube tunnel and use above command replace ingress ip with 127.0.0.1
+curl 127.0.0.1 -H 'host: nginx.app.com'
+curl 127.0.0.1 -H 'host: tomcat.app.com'
