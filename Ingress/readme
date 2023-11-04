@@ -8,3 +8,9 @@ If from outside the cluster
 minikube tunnel and use above command replace ingress ip with 127.0.0.1
 curl 127.0.0.1 -H 'host: nginx.app.com'
 curl 127.0.0.1 -H 'host: tomcat.app.com'
+
+Secure ingress:
+SSL (Secure Sockets layer)/TLS (Transport layer security); TLS/SSL are the way of encrypting the data bw the client and website. Decrytion can happen at the below places
+SSL passthrough - Decrypts at Service not at LB
+SSL passthrough - Decrypts at LB and request flows as http post that to the service.
+SSL Bridging - Decrypts at LB and again Encrypts at LB and then request flows to service.
